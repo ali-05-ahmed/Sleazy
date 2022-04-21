@@ -6,10 +6,9 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./interfaces/IMalevolent.sol";
 import "hardhat/console.sol";
 
-contract NFT is IMalevolent, ERC721 , Ownable{
+contract NFT is ERC721 , Ownable{
     using Counters for Counters.Counter;
      using Strings for uint256;
       Counters.Counter private _tokenIds;
@@ -85,18 +84,18 @@ contract NFT is IMalevolent, ERC721 , Ownable{
         _tokenURIs[tokenId] = _tokenURI;
     }
 
-    function maxSupply() public override view returns(uint256){
+    function maxSupply() public  view returns(uint256){
         return _maxSupply;
     }
 
-    function rarity1_() public override view returns(uint256){
+    function rarity1_() public  view returns(uint256){
         return rarity1;
     }
-     function rarity2_() public override view returns(uint256){
+     function rarity2_() public  view returns(uint256){
         return rarity2;
     }
 
-    function rarity2_startlimit_() public override view returns(uint256){
+    function rarity2_startlimit_() public view returns(uint256){
         return 2;
     }
    
@@ -114,7 +113,7 @@ contract NFT is IMalevolent, ERC721 , Ownable{
         }
     }
 
-    function createToken(address account,uint8 _nftType) public override returns(uint) {
+    function createToken(address account,uint8 _nftType) public returns(uint) {
         //require(_owner[_msgSender()]==true,"Not authorized to mint"); //must uncomment
         require(_tokenIds.current() < rarity2_limit ,"all NFTs Minted");
         
